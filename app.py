@@ -19,7 +19,7 @@ def new_project():
 
 
 @app.route('/projects/<id>')
-def project(id):
+def detail(id):
     project = Project.query.get(id)
     return render_template('detail.html')
 
@@ -44,6 +44,11 @@ def delete_project(id):
     db.session.delete(project)
     db.session.commit()
     return redirect(url_for('index'))
+
+
+@app.route('/about')
+def about():
+    pass
 
 
 if __name__ == '__main__':
