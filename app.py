@@ -1,6 +1,10 @@
 from flask import (render_template, url_for, request, redirect)
-
+from datetime import datetime
 from models import db, Project, app
+
+
+def clean_date(date_str):
+    return datetime.strptime(date_str, '%Y-%m').date()
 
 
 @app.route('/')
@@ -12,8 +16,10 @@ def index():
 @app.route('/projects/new', methods=['GET', 'POST'])
 def new_project():
     if request.form:
-        new_project = Project(title=request.form['title'], date=request.form['date'],
+        new_project = Project(title=request.form['title'], date=clean_date(request.form['date']),
                               description=request.form['description'], skills=request.form['skills'], repo_url=request.form['repo_url'])
+        db.session.add(new_project)
+        db.session.commit()
         return redirect(url_for('index'))
     return render_template('projectform.html')
 

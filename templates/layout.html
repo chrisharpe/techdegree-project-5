@@ -8,7 +8,6 @@
     <meta name="description" content="A portfolio of my work">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
@@ -18,7 +17,7 @@
     <section class="navigation">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Student Name</a>
+                <a class="navbar-brand" href="{{url_for('about')}}">Chris Harpe</a>
                 <button class="toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                     aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
@@ -40,10 +39,12 @@
                                 Projects
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#project1">Project 1</a></li>
-                                <li><a class="dropdown-item" href="#project2">Project 2</a></li>
-                                <li><a class="dropdown-item" href="#project3">Project 3</a></li>
-                                <li><a class="dropdown-item" href="#project4">Project 4</a></li>
+                                {%for project in projects%}
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="{{url_for('detail', id=project.id)}}">{{project.title}}</a>
+                                </li>
+                                {%endfor%}
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -57,29 +58,74 @@
             </div>
         </nav>
     </section>
-    <section class="header">
-        <h1>New Project</h1>
+    {% block content %}
+    <!-- <section class="header">
+        <h1>Python Developer</h1>
+        <p>A short one-liner about your love of coding.</p>
+        <img src="https://cdn.pixabay.com/photo/2016/11/29/13/14/attractive-1869761_1280.jpg" alt="Headshot of myself">
     </section>
-    <section id="form">
-        <form action="{{url_for('new_project')}}" method="POST">
-            <label for="title">Project Title</label>
-            <input type="text" name="title" id="title" placeholder="Project Name" required>
-            <label for="date">Completion Date</label>
-            <input type="month" name="date" id="date" required>
-            <label for="description">Description</label>
-            <textarea name="description" id="description" cols="30" rows="20" placeholder="Description"
-                required></textarea>
-            <label for="skills-list" id="skills-label">Skills</label>
-            <p>Separate each skill by a comma</p>
-            <textarea name="skills" id="skills-list" cols="30" rows="10" placeholder="Skill, Skill" required></textarea>
-            <label for="repo_url">GitHub Link</label>
-            <input type="url" name="repo_url" id="repo_url" placeholder="Link to the repo" required>
-            <div>
-                <button type="reset">Cancel</button>
-                <button type="submit">Submit</button>
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            Pastry wafer chocolate cake caramels.
+            Gummi bears pudding sugar plum macaroon.
+            Cake tart apple pie soufflé sweet sweet.
+            Topping bear claw lemon drops gingerbread
+            biscuit pudding fruitcake icing chocolate bar.
+        </p>
+        <div id="triangle1"></div>
+        <div id="triangle2"></div>
+    </section>
+    <section id="skills">
+        <i class="fas fa-laptop-code"></i>
+        <h2>Skills</h2>
+        <ul>
+            <li>Python</li>
+            <li>Flask</li>
+            <li>SQLAlchemy</li>
+            <li>GitHub</li>
+            <li>Visual Studio Code</li>
+        </ul>
+    </section>
+    <section id="projects">
+        <div id="triangle3"></div>
+        <i class="fas fa-file-code"></i>
+        <h2>Projects</h2>
+        {% for project in projects %}
+        <div id="project-list">
+            <div id="project1" class="a-project">
+                <h3>{{project.title}}</h3>
+                <a href="{{project.repo_url}}" class="github-btn">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+                <p>
+                    {{project.description}}
+                </p>
+                <p>
+                    {{project.skills}}
+                </p>
             </div>
-        </form>
+            {%endfor%}
+        </div>
+        </div>
+        <div id="triangle4"></div>
     </section>
+    <section id="contact">
+        <i class="fas fa-paper-plane"></i>
+        <h2>Contact Me</h2>
+        <p>
+            Pastry wafer chocolate cake caramels.
+            Gummi bears pudding sugar plum macaroon.
+            Cake tart apple pie soufflé sweet sweet.
+            Topping bear claw lemon drops gingerbread biscuit pudding fruitcake icing chocolate bar.
+        </p>
+        <p>
+            <i class="fas fa-envelope"></i>
+            my_email@email.com
+        </p>
+    </section> -->
+    {% endblock %}
     <section class="footer">
         <div class="socials">
             <!--Delete any you don't use-->
