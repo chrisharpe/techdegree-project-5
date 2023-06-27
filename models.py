@@ -11,8 +11,8 @@ db = SQLAlchemy(app)
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column('title', db.String())
-    date = db.Column('date_published', db.DateTime,
-                     default=datetime.datetime.now)
+    date = db.Column('date_published', db.Date,
+                     default=datetime.date.today)
     description = db.Column('description', db.Text)
     skills = db.Column('skills', db.Text)
     repo_url = db.Column('repo_url', db.Text)

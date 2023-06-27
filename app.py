@@ -4,7 +4,7 @@ from models import db, Project, app
 
 
 def clean_date(date_str):
-    return datetime.strptime(date_str, '%Y-%m').date()
+    return datetime.strptime(date_str, '%Y-%m')
 
 
 @app.route('/')
@@ -15,24 +15,27 @@ def index():
 
 @app.route('/projects/new', methods=['GET', 'POST'])
 def new_project():
+    projects = Project.query.all()
     if request.form:
         new_project = Project(title=request.form['title'], date=clean_date(request.form['date']),
                               description=request.form['description'], skills=request.form['skills'], repo_url=request.form['repo_url'])
         db.session.add(new_project)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('projectform.html')
+    return render_template('projectform.html', projects=projects)
 
 
 @app.route('/projects/<id>')
 def detail(id):
+    projects = Project.query.all()
     project = Project.query.get(id)
-    return render_template('detail.html')
+    return render_template('detail.html', projects=projects, project=project)
 
 
 @app.route('/edit/<id>', methods=['GET', 'POST'])
 def edit_project(id):
     project = Project.query.get(id)
+    projects = Project.query.all()
     if request.form:
         project.title = request.form['title']
         project.date = request.form['date']
@@ -41,7 +44,7 @@ def edit_project(id):
         project.repo_url = request.form['repo_url']
         db.session.commit()
         return redirect(url_for('index.html'))
-    return render_template('projectform.html', project=project)
+    return render_template('projectform.html', project=project, projects=projects)
 
 
 @app.route('/projects/<id>/delete')
