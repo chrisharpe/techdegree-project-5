@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<section id="not-found">
+    <img src="https://media.giphy.com/media/DvyLQztQwmyAM/giphy.gif" alt="Surprised Dog Gif">
+    <h2>Hmm...it seems this page can't be fetched.<i class="fas fa-baseball-ball"></i></h2>
+    <p>{{ msg }}</p>
+    <a href="{{ url_for('index') }}">
+        <button><i class="fas fa-home"></i><i class="fas fa-bone"></i>Go Home</button>
+    </a>
+</section>
+
+{% endblock %}

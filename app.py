@@ -28,13 +28,13 @@ def new_project():
 @app.route('/project/<id>')
 def detail(id):
     projects = Project.query.all()
-    project = Project.query.get(id)
+    project = Project.query.get_or_404(id)
     return render_template('detail.html', projects=projects, project=project)
 
 
 @app.route('/project/<id>/edit', methods=['GET', 'POST'])
 def edit_project(id):
-    project = Project.query.get(id)
+    project = Project.query.get_or_404(id)
     projects = Project.query.all()
     formatted_date = project.date.strftime('%Y-%m')
     if request.form:
@@ -50,7 +50,7 @@ def edit_project(id):
 
 @app.route('/project/<id>/delete')
 def delete_project(id):
-    project = Project.query.get(id)
+    project = Project.query.get_or_404(id)
     db.session.delete(project)
     db.session.commit()
     return redirect(url_for('index'))
@@ -59,6 +59,11 @@ def delete_project(id):
 @app.route('/about')
 def about():
     pass
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html', msg=error), 404
 
 
 if __name__ == '__main__':
