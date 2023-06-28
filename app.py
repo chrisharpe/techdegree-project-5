@@ -58,7 +58,8 @@ def delete_project(id):
 
 @app.route('/about')
 def about():
-    pass
+    projects = Project.query.all()
+    return render_template('about.html', projects=projects)
 
 
 @app.errorhandler(404)
