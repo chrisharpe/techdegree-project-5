@@ -21,4 +21,9 @@ To install and run the project locally, please follow the following steps:
 What I learned by completing this project:
 * How to format a README file with Markdown syntax
 * Template inheritance
-* 
+* Routes using FLASK
+* Jinja2 Templating
+* Form Handling
+* Data Validation
+* URL Building
+
